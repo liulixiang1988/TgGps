@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="842283a1-8b84-4c8d-b4b3-8bc861b6a00b" ChangeDateTime="09/06/2015 07:22:20">
+    <Property Name="ElementName" Value="[dbo].[tbGps].[Long]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tbGps]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="latitude" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e25878cd-b7c9-44c8-83ed-e526758cf83f" ChangeDateTime="09/06/2015 07:23:00">
+    <Property Name="ElementName" Value="[dbo].[tbGps].[latitude]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tbGps]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Latitude" />
+  </Operation>
+</Operations>
