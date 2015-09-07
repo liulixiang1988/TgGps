@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace TgGPS.Models
 {
@@ -12,7 +13,7 @@ namespace TgGPS.Models
 
         public static IDbConnection GetConnection()
         {
-            var connection = new SqlConnection(ConnectString);
+            var connection = new MySqlConnection(ConnectString);
             connection.Open();
             return connection;
         }

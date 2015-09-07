@@ -1,6 +1,10 @@
 ﻿using Nancy;
 using Nancy.Authentication.Token;
+using Nancy.ModelBinding;
+using TgGPS.Configs;
 using TgGPS.Models;
+using TgGPS.Util;
+using TgGPS.ViewModels;
 
 namespace TgGPS.Modules
 {
@@ -8,15 +12,12 @@ namespace TgGPS.Modules
     {
         public AuthModule(ITokenizer tokenizer)
         {
-            Get["/login"] = parameters =>
-            {
-                return View["login"];
-            };
+            Get["/login"] = parameters => View["login"];
 
             Post["/login"] = x =>
             {
-                var username = (string)this.Request.Form.UserName;
-                var password = (string)this.Request.Form.Password;
+                var username = (string)Request.Form.UserName;
+                var password = (string)Request.Form.Password;
 
                 var userIdentity = User.ValidateUser(username, password);
 
@@ -33,10 +34,10 @@ namespace TgGPS.Modules
                     token,
                     userinfo = new
                     {
-                        UserId = user.UserId,
-                        UserName = user.UserName,
-                        Email = user.Email,
-                        LastLogin = user.LastLogin
+                        user.UserId,
+                        user.UserName,
+                        user.Email,
+                        user.LastLogin
                     }
                 };
                 //return Negotiate.WithModel(resultInfo).WithMediaRangeModel("application/json", resultInfo);
@@ -50,11 +51,23 @@ namespace TgGPS.Modules
                 return
                     new
                     {
-                        UserId = user.UserId,
-                        UserName = user.UserName,
-                        Email = user.Email,
-                        LastLogin = user.LastLogin
+                        user.UserId,
+                        user.UserName,
+                        user.Email,
+                        user.LastLogin
                     };
+            };
+
+            Post["/register"] = _ =>
+            {
+                var user = this.Bind<User>("Id", "LastLogin");
+                if (User.Exists(user))
+                {
+                    return new {result = 0, msg = "当前用户已经存在"};
+                }
+                user.Password = CryptoHelper.GetMd5Hash(user.Password);
+                var result = User.AddUser(user);
+                return new {result, user=user.To<UserViewModel>()};
             };
         }
     }

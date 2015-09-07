@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Auth\UserIdentity.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Configs\MapsConfig.cs" />
     <Compile Include="Models\DbUtil.cs" />
     <Compile Include="Models\Gps.cs" />
     <Compile Include="Models\User.cs" />
@@ -109,6 +110,8 @@
     <Compile Include="Modules\GpsModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CryptoHelper.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -122,7 +125,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configs\" />
+    <Folder Include="Infrastructures\" />
     <Folder Include="Log\" />
   </ItemGroup>
   <PropertyGroup>

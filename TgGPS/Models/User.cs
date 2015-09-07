@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dapper;
 using TgGPS.Auth;
+using TgGPS.Util;
 
 namespace TgGPS.Models
 {
@@ -85,9 +86,10 @@ namespace TgGPS.Models
         {
             using (var con = DbUtil.GetConnection())
             {
+                var passwordhash = CryptoHelper.GetMd5Hash(password);
                 User user = con.Query<User>(
-                    "select * from tbUser where UserId = @UserId and password = @password and IsActive=1",
-                    new { UserId = userId, password }).FirstOrDefault();
+                    "select * from tbUser where UserId = @userId and password = @password and IsActive=1",
+                    new {userId, password=passwordhash }).FirstOrDefault();
                 if (user == null) return null;
 
                 var claims = new List<string>
@@ -105,6 +107,27 @@ namespace TgGPS.Models
             {
                 return con.Execute("update tbUser set LastLogin=getdate() where UserId=@UserId",
                     new { UserId = user.UserId }) > 0;
+            }
+        }
+
+        public static bool Exists(User user)
+        {
+            using (var con = DbUtil.GetConnection())
+            {
+                const string sql = @"select * from tbUser where UserId=@UserId or Email=@Email";
+                var user2 = con.Query(sql, new {user.UserId, user.Email}).FirstOrDefault();
+                return user2 != null;
+            }
+        }
+
+        public static int AddUser(User user)
+        {
+            using (var con = DbUtil.GetConnection())
+            {
+                const string sql = @"INSERT INTO 
+tbUser(UserId, UserName, Password, IsActive, IsSuperUser, IsStuff, Email, OrgCode)
+values(@UserId, @UserName, @Password, @IsActive, @IsSuperuser, @IsStuff, @Email, @OrgCode)";
+                return con.Execute(sql, user);
             }
         }
     }

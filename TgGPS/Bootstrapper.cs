@@ -2,6 +2,7 @@
 using Nancy.Authentication.Token;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
+using TgGPS.Configs;
 
 namespace TgGPS
 {
@@ -33,6 +34,7 @@ namespace TgGPS
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             base.ApplicationStartup(container, pipelines);
+            MapsConfig.Register();
         }
     }
 }
