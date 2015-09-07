@@ -17,7 +17,8 @@ namespace TgGPS.Modules
             Post["/add"] = x =>
             {
                 var gps = this.Bind<Gps>("id");
-                return new {result = "ok", gps=gps};
+                var result = Gps.Add(gps);
+                return new {result, gps};
             };
         }
     }
