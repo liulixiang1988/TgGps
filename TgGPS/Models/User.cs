@@ -105,8 +105,8 @@ namespace TgGPS.Models
         {
             using (var con = DbUtil.GetConnection())
             {
-                return con.Execute("update tbUser set LastLogin=getdate() where UserId=@UserId",
-                    new { UserId = user.UserId }) > 0;
+                return con.Execute("update tbUser set LastLogin=@now where UserId=@UserId",
+                    new { user.UserId, now=DateTime.Now }) > 0;
             }
         }
 

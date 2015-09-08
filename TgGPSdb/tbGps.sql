@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [dbo].[tbGps]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY, 
-    [UserId] VARCHAR(50) NULL, 
-    [Latitude] VARCHAR(50) NULL, 
-    [Longitude] VARCHAR(50) NULL, 
+	[Id] BIGINT identity(1,1) NOT NULL PRIMARY KEY, 
+    [UserId] NVARCHAR(50) NULL, 
+    [Latitude] NVARCHAR(50) NULL, 
+    [Longitude] NVARCHAR(50) NULL, 
     [LocationTime] DATETIME NULL, 
-    [Accuracy] VARCHAR(50) NULL, 
-    [Altitude] VARCHAR(50) NULL, 
-    [Speed] VARCHAR(50) NULL
+    [Accuracy] NVARCHAR(50) NULL, 
+    [Altitude] NVARCHAR(50) NULL, 
+    [Speed] NVARCHAR(50) NULL
 )

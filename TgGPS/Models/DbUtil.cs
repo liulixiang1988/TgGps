@@ -13,7 +13,7 @@ namespace TgGPS.Models
 
         public static IDbConnection GetConnection()
         {
-            var connection = new MySqlConnection(ConnectString);
+            var connection = new SqlConnection(ConnectString);
             connection.Open();
             return connection;
         }
