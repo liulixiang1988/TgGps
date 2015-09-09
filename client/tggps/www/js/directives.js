@@ -1,34 +1,32 @@
 angular.module('starter.directives', [])
 
-.directive('map', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      onCreate: '&'
-    },
-    link: function ($scope, $element, $attr) {
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(43.07493, -89.381388),
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map($element[0], mapOptions);
-  
-        $scope.onCreate({map: map});
+.directive("map", function() {
+    return {
+        restrict: "E",
+        replace: true,
+        template: "<div id='allMap'></div>",
+        scope: {
+            center: "=", // Center point on the map (e.g. <code>{ latitude: 10, longitude: 10 }</code>).  
+            markers: "=", // Array of map markers (e.g. <code>[{ lat: 10, lon: 10, name: "hello" }]</code>).  
+            width: "@", // Map width in pixels.  
+            height: "@", // Map height in pixels.  
+            zoom: "@", // Zoom level (one is totally zoomed out, 25 is very much zoomed in).  
+            zoomControl: "@", // Whether to show a zoom control on the map.  
+            scaleControl: "@", // Whether to show scale control on the map.  
+            address: "@",
+            onCreate: "&"
 
-        // Stop the side bar from dragging when mousedown/tapdown on the map
-        google.maps.event.addDomListener($element[0], 'mousedown', function (e) {
-          e.preventDefault();
-          return false;
-        });
-      }
-
-      if (document.readyState === "complete") {
-        initialize();
-      } else {
-        google.maps.event.addDomListener(window, 'load', initialize);
-      }
-    }
-  }
+        },
+        link: function($scope, $element, $attrs) {
+            var map;
+            // 百度地图API功能  
+            var map = new BMap.Map("allMap");
+            var point = new BMap.Point(116.404, 39.915);
+            map.centerAndZoom(point, 15);
+            map.enableScrollWheelZoom(true); 
+            $scope.onCreate({
+                map: map
+            });
+        }
+    };
 });

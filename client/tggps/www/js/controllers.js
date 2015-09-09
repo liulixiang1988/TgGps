@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
   $scope.centerOnMe = function () {
     console.log("Centering");
     if (!$scope.map) {
+      console.log("dddd");
       return;
     }
 
@@ -18,7 +19,10 @@ angular.module('starter.controllers', [])
 
     navigator.geolocation.getCurrentPosition(function (pos) {
       console.log('Got pos', pos);
-      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      // $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      var point = new BMap.Point(pos.coords.longitude, pos.coords.latitude);
+      console.log(point);
+      $scope.map.centerAndZoom(point,15);  
       $scope.loading.hide();
     }, function (error) {
       alert('Unable to get location: ' + error.message);
