@@ -11,6 +11,10 @@ namespace TgGPS.Models
         #region 属性
         public long? Id { get; set; }
 
+        public string OrgCode { get; set; }
+
+        public string AppCode { get; set; }
+
         public string UserId { get; set; }
 
         public string Latitude { get; set; }
