@@ -35,8 +35,8 @@ namespace TgGPS.Models
             using (var con = DbUtil.GetConnection())
             {
                 const string sql = @"INSERT INTO 
-tbGps(UserId, Latitude, Longitude, LocationTime, Accuracy, Altitude, Speed)
-values(@UserId, @Latitude, @Longitude, @LocationTime, @Accuracy, @Altitude, @Speed)";
+tbGps(OrgCode, AppCode, UserId, Latitude, Longitude, LocationTime, Accuracy, Altitude, Speed)
+values(@OrgCode, @AppCode, @UserId, @Latitude, @Longitude, @LocationTime, @Accuracy, @Altitude, @Speed)";
                 return con.Execute(sql, gps);
             }
         }
